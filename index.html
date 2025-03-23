@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memeable | Developer Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #5865F2; /* Discord blue */
+            --primary-dark: #4752c4;
+            --secondary-color: #36393f; /* Discord dark */
+            --text-primary: #ffffff;
+            --text-secondary: #b9bbbe;
+            --bg-primary: #202225; /* Discord darker */
+            --bg-secondary: #2f3136;
+            --bg-tertiary: #36393f;
+            --success-color: #43b581; /* Discord online green */
+            --danger-color: #f04747;
+            --warning-color: #faa61a;
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 16px;
+        }
+
+        .btn.primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn.primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn.secondary {
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn.secondary:hover {
+            background-color: rgba(88, 101, 242, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Header */
+        header {
+            background-color: var(--bg-secondary);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo {
+            display: none; /* Hide the logo as it's not in the example image */
+        }
+
+        nav {
+            width: 100%;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin: 0 30px; /* Increased spacing between items */
+        }
+
+        nav ul li a {
+            font-size: 18px; /* Slightly larger font */
+            font-weight: 500;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            font-size: 20px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+            background-color: var(--bg-tertiary);
+        }
+
+        .theme-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        body.light-theme .theme-toggle:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .theme-toggle i {
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover i {
+            transform: rotate(30deg);
+        }
+
+        /* Hero Section */
+        #hero {
+            padding: 80px 0;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hero-text {
+            text-align: center;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .hero-text h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .hero-text h2 {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .highlight {
+            color: var(--primary-color);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        /* Make buttons more equal in width */
+        .btn {
+            min-width: 160px;
+            text-align: center;
+        }
+
+        /* Discord Card */
+        .discord-card {
+            background-color: var(--bg-tertiary);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            max-width: 350px;
+            margin: 0 auto;
+        }
+
+        .discord-header {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background-color: var(--bg-secondary);
+        }
+
+        .discord-logo {
+            width: 24px;
+            margin-right: 10px;
+        }
+
+        .discord-banner {
+            height: 60px;
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+        }
+
+        .discord-profile {
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .discord-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: var(--bg-secondary);
+            margin: -40px auto 15px;
+            overflow: hidden;
+            border: 5px solid var(--bg-tertiary);
+        }
+
+        .discord-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .discord-username {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .discord-tag {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+
+        .discord-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .status-dot.online {
+            background-color: var(--success-color);
+        }
+
+        .discord-about {
+            padding: 20px;
+            border-top: 1px solid var(--bg-secondary);
+        }
+
+        .discord-about h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        /* Projects Section */
+        #projects {
+            padding: 80px 0;
+            background-color: var(--bg-secondary);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 4px;
+            background-color: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .projects-grid {
+            display: flex;
+            justify-content: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            width: 100%;
+            background-color: var(--bg-tertiary);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .project-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.05);
+        }
+
+        .project-content {
+            padding: 20px;
+        }
+
+        .project-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        .project-content p {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+            gap: 8px;
+        }
+
+        .tag {
+            background-color: rgba(88, 101, 242, 0.2);
+            color: var(--primary-color);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .project-link {
+            color: var(--text-secondary);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .project-link:hover {
+            color: var(--primary-color);
+        }
+
+        /* Contact Section */
+        #contact {
+            padding: 80px 0;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Common username highlight box styling */
+        .username-box {
+            background-color: #0066cc;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* Discord icon styling */
+        .discord-logo {
+            color: white;
+            font-size: 18px;
+        }
+        
+        /* Roblox logo styling */
+        .roblox-logo {
+            width: 18px;
+            height: 18px;
+        }
+
+        .contact-form {
+            background-color: var(--bg-tertiary);
+            padding: 30px;
+            border-radius: var(--border-radius);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--bg-secondary);
+            border: 1px solid transparent;
+            border-radius: var(--border-radius);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-text {
+                text-align: center;
+                order: 1;
+            }
+            
+            .hero-image {
+                order: 0;
+                margin-bottom: 40px;
+            }
+            
+            .cta-buttons {
+                justify-content: center;
+            }
+            
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header .container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            nav ul li {
+                margin-left: 15px;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            
+            .project-card {
+                min-width: 280px;
+            }
+        }
+
+        /* Add these CSS rules for light theme */
+        body.light-theme {
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --bg-primary: #f5f5f5;
+            --bg-secondary: #e9e9e9;
+            --bg-tertiary: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Project card download styling */
+        .project-download-link {
+            display: block;
+            color: inherit;
+            text-decoration: none;
+            height: 100%;
+            width: 100%;
+            cursor: pointer;
+        }
+        
+        .project-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .download-indicator {
+            margin-top: 15px;
+            color: var(--primary-color);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .download-indicator i {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">Memeable</div>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </div>
+        </div>
+    </header>
+
+    <section id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Hey, I'm <span class="highlight">Memeable</span></h1>
+                    <h2>Roblox and Plane Enthusiast</h2>
+                    <div class="cta-buttons">
+                        <a href="#projects" class="btn primary">View My Work</a>
+                        <a href="#contact" class="btn secondary">Get In Touch</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">My Projects</h2>
+            <div class="projects-grid">
+                <!-- M.A.I project card modified to download the exe -->
+                <div class="project-card">
+                    <a href="mai.exe" download class="project-download-link">
+                        <div class="project-image">
+                            <!-- Replace with your actual image path -->
+                            <img src="mai.jpeg" alt="M.A.I Project">
+                        </div>
+                        <div class="project-content">
+                            <h3>M.A.I</h3>
+                            <p>My cool ai thats like pretty cool and yeah it's pretty cool.</p>
+                            <div class="project-tags">
+                                <span class="tag">Python</span>
+                            </div>
+                            <div class="download-indicator">
+                                <i class="fas fa-download"></i> Click to download
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <!-- Discord contact - now highlighted -->
+                    <div class="contact-item">
+                        <div class="username-box">
+                            <i class="fab fa-discord discord-logo"></i>
+                            <span>@memeableg</span>
+                        </div>
+                    </div>
+                    
+                    <!-- First Roblox contact with blue highlight box -->
+                    <div class="contact-item">
+                        <div class="username-box">
+                            <svg class="roblox-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                                <path fill="#ffffff" d="M35.389,29.544l-22.33-7.517c-0.818-0.275-1.7,0.164-1.976,0.983l-4.639,13.78c-0.275,0.818,0.164,1.7,0.983,1.976l22.33,7.517c0.818,0.275,1.7-0.164,1.976-0.983l4.639-13.78C36.647,30.701,36.208,29.82,35.389,29.544z"/>
+                                <path fill="#ffffff" d="M41.566,12.174l-22.33-7.517c-0.818-0.275-1.7,0.164-1.976,0.983l-4.639,13.78c-0.275,0.818,0.164,1.7,0.983,1.976l22.33,7.517c0.818,0.275,1.7-0.164,1.976-0.983l4.639-13.78C42.824,13.331,42.385,12.45,41.566,12.174z"/>
+                            </svg>
+                            <span>pods_77777</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Second Roblox contact with blue highlight box -->
+                    <div class="contact-item">
+                        <div class="username-box">
+                            <svg class="roblox-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                                <path fill="#ffffff" d="M35.389,29.544l-22.33-7.517c-0.818-0.275-1.7,0.164-1.976,0.983l-4.639,13.78c-0.275,0.818,0.164,1.7,0.983,1.976l22.33,7.517c0.818,0.275,1.7-0.164,1.976-0.983l4.639-13.78C36.647,30.701,36.208,29.82,35.389,29.544z"/>
+                                <path fill="#ffffff" d="M41.566,12.174l-22.33-7.517c-0.818-0.275-1.7,0.164-1.976,0.983l-4.639,13.78c-0.275,0.818,0.164,1.7,0.983,1.976l22.33,7.517c0.818,0.275,1.7-0.164,1.976-0.983l4.639-13.78C42.824,13.331,42.385,12.45,41.566,12.174z"/>
+                            </svg>
+                            <span>memeable5</span>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form" action="https://formspree.io/f/podolyangregory@gmail.com" method="POST">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Improved theme toggle functionality
+            const themeToggle = document.querySelector('.theme-toggle');
+            const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+            
+            // Check for saved preference or use system preference
+            const savedTheme = localStorage.getItem('theme');
+            const icon = themeToggle.querySelector('i');
+            
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-theme');
+                icon.classList.replace('fa-moon', 'fa-sun');
+            } else if (savedTheme === 'dark') {
+                document.body.classList.remove('light-theme');
+                icon.classList.replace('fa-sun', 'fa-moon');
+            } else if (prefersDarkScheme.matches) {
+                document.body.classList.remove('light-theme');
+                icon.classList.replace('fa-sun', 'fa-moon');
+            } else {
+                document.body.classList.add('light-theme');
+                icon.classList.replace('fa-moon', 'fa-sun');
+            }
+            
+            // Toggle theme when button is clicked
+            themeToggle.addEventListener('click', function() {
+                if (document.body.classList.contains('light-theme')) {
+                    document.body.classList.remove('light-theme');
+                    icon.classList.replace('fa-sun', 'fa-moon');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    document.body.classList.add('light-theme');
+                    icon.classList.replace('fa-moon', 'fa-sun');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Updated form submission handler
+            const contactForm = document.querySelector('.contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    // Only prevent default if using Formspree
+                    // e.preventDefault();
+                    
+                    const name = document.getElementById('name').value;
+                    const email = document.getElementById('email').value;
+                    const message = document.getElementById('message').value;
+                    
+                    // Log the submission details
+                    console.log('Form Submission:', { name, email, message });
+                    console.log('Sending to: podolyangregory@gmail.com');
+                    
+                    // If you're not using Formspree and want to use mailto instead
+                    // Uncomment this and comment out the Formspree action in the form tag
+                    /*
+                    const mailtoLink = `mailto:podolyangregory@gmail.com?subject=Contact from ${name}&body=${message}%0A%0AFrom: ${name}%0AEmail: ${email}`;
+                    window.location.href = mailtoLink;
+                    return false;
+                    */
+                    
+                    // For Formspree, allow the form to submit normally
+                });
+            }
+
+            // Placeholder for Discord avatar (replace with your actual Discord avatar)
+            // This simulates fetching a Discord avatar if you don't have one ready
+            const placeholderAvatars = [
+                'https://i.imgur.com/PN1Ygdj.png',
+                'https://i.imgur.com/GMmtFdz.png',
+                'https://i.imgur.com/XCyRLre.png'
+            ];
+            
+            const avatarImg = document.getElementById('discord-avatar');
+            if (avatarImg) {
+                // Use a random placeholder or set your actual Discord avatar URL
+                avatarImg.src = placeholderAvatars[Math.floor(Math.random() * placeholderAvatars.length)];
+            }
+
+            // Project cards hover effect enhancement
+            const projectCards = document.querySelectorAll('.project-card');
+            projectCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    card.style.transform = 'translateY(-8px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    card.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
